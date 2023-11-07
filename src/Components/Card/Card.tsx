@@ -2,6 +2,7 @@ import React, { SyntheticEvent } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { CompanySearch } from '../../company';
 import AddPortfolio from '../Portfolio/AddPortfolio';
+import { Link } from 'react-router-dom';
 
 interface Props {
   id: string;
@@ -15,20 +16,20 @@ const Card: React.FC<Props> = ({
   onPortfolioCreate,
 }: Props): JSX.Element => {
   return (
-    <div className="card" style={{ width: 500 }}>
-      <img className=" card-img-top" alt="company logo" />
+    <div className="container-lg" key={id} id={id}>
+      <div className="card">
+        <div className="card-body justify-content-center">
+          <h2 className="card-title">{searchResult.name}</h2>
+          <p>
+            {searchResult.exchangeShortName} - {searchResult.stockExchange}
+          </p>
+        </div>
 
-      <div className="card-body justify-content-center">
-        <h2 className="card-title">{searchResult.name}</h2>
-        <p>
-          {searchResult.exchangeShortName} - {searchResult.stockExchange}
-        </p>
+        <AddPortfolio
+          onPortfolioCreate={onPortfolioCreate}
+          symbol={searchResult.symbol}
+        />
       </div>
-
-      <AddPortfolio
-        onPortfolioCreate={onPortfolioCreate}
-        symbol={searchResult.symbol}
-      />
     </div>
   );
 };

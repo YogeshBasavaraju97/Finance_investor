@@ -1,11 +1,11 @@
 import React, { ChangeEvent, SyntheticEvent, useState } from 'react';
 import { CompanySearch } from './company';
-import logo from './logo.svg';
 
 import './App.css';
-import Card from './Components/Card/Card';
+
 import CardList from './Components/CardList/CardList';
 import Search from './Components/Search/Search';
+import Navbar from './Components/Navbar/Navbar';
 import { searchCompanies } from './api';
 import ListPortfolio from './Components/Portfolio/ListPortfolio';
 
@@ -22,8 +22,18 @@ function App() {
 
   const onPortfolioCreate = (e: any) => {
     e.preventDefault();
+    const exist = portfolioValues.find((value) => value === e.target[0].value);
+    if (exist) return;
     const updatedportfolio = [...portfolioValues, e.target[0].value];
     setportfolioValues(updatedportfolio);
+  };
+
+  const onPortfolioDelete = (e: any) => {
+    e.preventDefault();
+    const remove = portfolioValues.filter((value) => {
+      return value !== e.target[0].value;
+    });
+    setportfolioValues(remove);
   };
 
   const onSearchSubmit = async (e: SyntheticEvent) => {
@@ -39,13 +49,18 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar />
+
       <Search
         onSearchSubmit={onSearchSubmit}
         search={search}
         handleSearchChange={handleSearchChange}
       />
       {serverError && <div>Unable to connect to API</div>}
-      <ListPortfolio />
+      <ListPortfolio
+        portfolioValues={portfolioValues}
+        onPortfolioDelete={onPortfolioDelete}
+      />
       <CardList
         searchResults={searchResult}
         onPortfolioCreate={onPortfolioCreate}
