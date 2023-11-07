@@ -16,20 +16,20 @@ const Card: React.FC<Props> = ({
   onPortfolioCreate,
 }: Props): JSX.Element => {
   return (
-    <div className="container-lg" key={id} id={id}>
-      <div className="card">
-        <div className="card-body justify-content-center">
-          <h2 className="card-title">{searchResult.name}</h2>
-          <p>
-            {searchResult.exchangeShortName} - {searchResult.stockExchange}
-          </p>
-        </div>
+    <div className="flex  justify-content-between" key={id} id={id}>
+      <h2 className=" text-center text-veryDarkViolet md:text-left">
+        {searchResult.name} ({searchResult.symbol})
+      </h2>
 
-        <AddPortfolio
-          onPortfolioCreate={onPortfolioCreate}
-          symbol={searchResult.symbol}
-        />
-      </div>
+      <div className="text-veryDarkBlue">{searchResult.currency}</div>
+
+      <p className="font-bold text-veryDarkBlue">
+        {searchResult.exchangeShortName} - {searchResult.stockExchange}
+      </p>
+      <AddPortfolio
+        onPortfolioCreate={onPortfolioCreate}
+        symbol={searchResult.symbol}
+      />
     </div>
   );
 };
