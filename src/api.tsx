@@ -31,3 +31,14 @@ export const getCompanyProfile = async (query: string) => {
     console.log('error message from api:', error.message);
   }
 };
+
+export const getKeyMatrics = async (query: string) => {
+  try {
+    const data = await axios.get<CompanyKeyMetrics[]>(
+      `https://financialmodelingprep.com/api/v3/profile/${query}?&apikey=FHIWgwbenlC5w5YGDajTQdqkhAlPnW9s`
+    );
+    return data;
+  } catch (error: any) {
+    console.log('error message from api:', error.message);
+  }
+};
